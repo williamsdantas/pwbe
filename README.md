@@ -1,2 +1,4 @@
 # pwbe
-projeto da disciplina Programação Web - Backend
+Projeto da disciplina Programação Web Back-End I
+Professor: Dr. Rodrigo da Cruz Fujioka
+Periodo: 2024
