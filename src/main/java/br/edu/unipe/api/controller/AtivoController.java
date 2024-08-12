@@ -22,8 +22,8 @@ public class AtivoController {
 	@PostMapping
 	public ResponseEntity<AtivoDTO> cadastrar(@RequestBody AtivoDTO ativoDTO) {
 		log.info("Cadastrando ativo: {}", ativoDTO);
-		ativoService.salvar(ativoDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(ativoDTO);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(ativoService.salvar(ativoDTO));
 		
 	}
 	

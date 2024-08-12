@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,8 +32,8 @@ public class AtivoService {
     public Ativo buscarAtivoPorId(Integer id) {
        return repository.findById(id).orElseThrow(() -> new RuntimeException("Ativo não encontrado"));
     }
-
-
+    /**
+     * Inclui um novo ativo */
     public AtivoDTO salvar(AtivoDTO ativoDTO){
         Ativo ativo = repository.save(convertToEntity(ativoDTO));
         return convertToDto(ativo);
@@ -62,9 +63,9 @@ public class AtivoService {
     }
 
     public Ativo convertToEntity(AtivoDTO ativoDTO) {
-        log.info("antes convertToEntity -> " + ativoDTO.getId());
-        Ativo ativo = modelMapper.map(ativoDTO, Ativo.class);
-        log.info("convertToEntity -> " + ativo.getId());
+        log.info("antes convertToEntity -> " + ativoDTO);
+        var ativo = modelMapper.map(ativoDTO, Ativo.class);
+        log.info("convertToEntity -> id=" + ativo.getId()+"; Nome=" + ativo.getNome()+"; Papel=" + ativo.getPapel());
         return ativo;
     }
 

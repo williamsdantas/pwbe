@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class AtivoDTO{
+
     private Integer id;
     @NotEmpty
     private String nome;
