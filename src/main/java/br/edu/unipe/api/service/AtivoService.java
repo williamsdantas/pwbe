@@ -2,15 +2,12 @@ package br.edu.unipe.api.service;
 
 
 import br.edu.unipe.api.model.Ativo;
-import br.edu.unipe.api.model.Operacao;
 import br.edu.unipe.api.model.dto.AtivoDTO;
-import br.edu.unipe.api.model.dto.OperacaoDTO;
 import br.edu.unipe.api.repository.AtivoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,13 +21,15 @@ public class AtivoService {
     private final AtivoRepository repository;
     private final ModelMapper modelMapper;
 
+    /**
+     * lista todos os ativos */
     public List<AtivoDTO> listarAtivos(){
         return convertToListaAtivoDTO(repository.findAll());
 
     }
 
-    public Ativo buscarAtivoPorId(Integer id) {
-       return repository.findById(id).orElseThrow(() -> new RuntimeException("Ativo não encontrado"));
+    public AtivoDTO buscarAtivoPorId(Integer id) {
+       return convertToDto(repository.findById(id).orElseThrow(() -> new RuntimeException("Ativo não encontrado")));
     }
     /**
      * Inclui um novo ativo */
@@ -71,7 +70,7 @@ public class AtivoService {
 
     private List<AtivoDTO> convertToListaAtivoDTO(List<Ativo> ativos) {
         return ativos.stream()
-                .map(ativo -> modelMapper.map(ativos, AtivoDTO.class))
+                .map(ativo -> modelMapper.map(ativo, AtivoDTO.class))
                 .collect(Collectors.toList());
     }
 

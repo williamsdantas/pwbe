@@ -1,6 +1,7 @@
 package br.edu.unipe.api.controller;
 
 import br.edu.unipe.api.model.dto.AtivoDTO;
+import br.edu.unipe.api.model.dto.UsuarioDTO;
 import br.edu.unipe.api.service.AtivoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +27,19 @@ public class AtivoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(ativoService.salvar(ativoDTO));
 		
 	}
-	
+
+	@GetMapping("/{id}")
+	public ResponseEntity<AtivoDTO> consultarPorId(@PathVariable int id){
+
+		return ResponseEntity.ok(ativoService.buscarAtivoPorId(id));
+
+	}
+
 	@GetMapping
-	public ResponseEntity<List<AtivoDTO>> getAtivos() {
-		
-		return ResponseEntity.ok(ativoService.listarAtivos());
+	public ResponseEntity<List<AtivoDTO>> listarAtivos() {
+		List<AtivoDTO> ativosDto = ativoService.listarAtivos();
+		log.info(ativosDto.toString());
+		return ResponseEntity.ok(ativosDto);
 		
 	}
 
