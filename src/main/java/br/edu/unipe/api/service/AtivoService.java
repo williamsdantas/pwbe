@@ -1,12 +1,15 @@
 package br.edu.unipe.api.service;
 
 
+import br.edu.unipe.api.exception.AtivoNotFoundException;
 import br.edu.unipe.api.model.Ativo;
 import br.edu.unipe.api.model.dto.AtivoDTO;
 import br.edu.unipe.api.repository.AtivoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.service.spi.ServiceException;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,37 +26,68 @@ public class AtivoService {
 
     /**
      * lista todos os ativos */
-    public List<AtivoDTO> listarAtivos(){
-        return convertToListaAtivoDTO(repository.findAll());
-
+    public ServiceResponse<List<AtivoDTO>> listarAtivos(){
+        try {
+            return new ServiceResponse<>(convertToListaAtivoDTO(repository.findAll()), HttpStatus.OK);
+        } catch(Exception e){
+            throw new ServiceException("Erro ao obter lista de ativos "+  e.getMessage());
+        }
     }
 
-    public AtivoDTO buscarAtivoPorId(Integer id) {
-       return convertToDto(repository.findById(id).orElseThrow(() -> new RuntimeException("Ativo não encontrado")));
+    public ServiceResponse<AtivoDTO> buscarAtivoPorId(Integer id) {
+        try {
+            return repository.findById(id)
+                    .map(ativo -> new ServiceResponse<>(convertToDto(ativo), HttpStatus.OK))
+                    .orElse(new ServiceResponse<>(null,HttpStatus.NO_CONTENT));
+        }
+        catch(ServiceException e) {
+            throw new ServiceException("Erro ao obter o ativo " + id + "." + e.getMessage());
+        }
     }
+
+
     /**
      * Inclui um novo ativo */
-    public AtivoDTO salvar(AtivoDTO ativoDTO){
-        Ativo ativo = repository.save(convertToEntity(ativoDTO));
-        return convertToDto(ativo);
+    public ServiceResponse<AtivoDTO> salvar(AtivoDTO ativoDTO){
+        try{
+            return new ServiceResponse<>(convertToDto(repository.save(convertToEntity(ativoDTO))), HttpStatus.CREATED);
+        }
+        catch(ServiceException e) {
+            throw new ServiceException("Erro ao criar um ativo." + e.getMessage());
+        }
     }
 
-    public  Ativo alterar(Ativo ativo){
-        validarExistenciaId(ativo.getId());
-        return repository.save(ativo);
+    public  ServiceResponse<AtivoDTO> alterar(AtivoDTO ativoDTO){
+        try{
+            validarExistenciaId(ativoDTO.getId());
+            return new ServiceResponse<>(convertToDto(repository.save(convertToEntity(ativoDTO))),HttpStatus.OK);
+        }
+        catch(ServiceException e) {
+            throw new ServiceException("Erro ao alterar um ativo." + e.getMessage());
+        }
+
     }
 
 
-    public void deletar(Integer id){
-        log.info("Start - Excluindo user ID {} ", id);
-        repository.deleteById(id);
-        log.info("End - Excluindo user ID {} ", id);
+    public ServiceResponse<Void> deletar(Integer id){
+        try{
+            log.info("Start - Excluindo user ID {} ", id);
+            validarExistenciaId(id);
+
+            repository.deleteById(id);
+            log.info("End - Excluindo user ID {} ", id);
+            return new ServiceResponse<>(null, HttpStatus.NO_CONTENT);
+        }
+        catch(ServiceException e) {
+            throw new ServiceException("Erro ao excluir um ativo." + e.getMessage());
+        }
+
     }
 
 
     private void validarExistenciaId(Integer id){
         if(Objects.isNull(id) || !repository.existsById(id)){
-            throw new RuntimeException("Ativo não existe para o id "+id);
+            throw new AtivoNotFoundException("Ativo não existe para o id "+id);
         }
     }
 
@@ -73,6 +107,7 @@ public class AtivoService {
                 .map(ativo -> modelMapper.map(ativo, AtivoDTO.class))
                 .collect(Collectors.toList());
     }
+
 
 
 }
