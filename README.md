@@ -1,8 +1,8 @@
 # Pós graduação em desenvolvimento web full-stack
-<p>Professor: Rodrigo Fujioka.  </p>
-<p>Aluno: Williams Alves Dantas </p>
-<p>E-mail: williamsad9@gmail.com</p>
-<p>RGM: 38441381 </p>
+<p><strong>Professor:</strong> Rodrigo Fujioka.  </p>
+<p><strong>Aluno:</strong> Williams Alves Dantas </p>
+<p><strong>E-mail:</strong> williamsad9@gmail.com</p>
+<p><strong>RGM:</strong> 38441381 </p>
 
 <h1>Descrição do projeto</h1>
 
