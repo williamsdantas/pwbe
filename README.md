@@ -1,75 +1,45 @@
-# Pós graduação em desenvolvimento web
-Código base da disciplina de fundamentos de programação web para disciplinas de pós graduação. 
-Contém conteúdo básico com fundamentos de programação Java web utilizando REST com Maven, JDK11, JDK 17 , SpringBoot , SpringData
+# Pós graduação em desenvolvimento web full-stack
+Professor: Rodrigo Fujioka. 
+Aluno: Williams Alves Dantas
+Matricula: 
 
-[![License](https://img.shields.io/github/license/rodrigofujioka/pos-javaweb.svg)](https://opensource.org/licenses/MIT)
-<img src="https://img.shields.io/github/followers/rodrigofujioka?label=Follow&style=plastic">
-<img src="https://img.shields.io/github/forks/rodrigofujioka/pos-javaweb?color=SSSS&label=Fork&style=plastic">
-<a href="https://github.com/rodrigofujioka/pos-javaweb/graphs/contributors" alt="Contributors">
-   <img src="https://img.shields.io/github/contributors/rodrigofujioka/pos-javaweb" /></a>
-<a href="https://github.com/rodrigofujioka/pos-javaweb/pulse" alt="Activity">
-    <img src="https://img.shields.io/github/commit-activity/m/rodrigofujioka/pos-javaweb" /></a>  
-  
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=rodrigofujioka_pos-javaweb&metric=bugs)](https://sonarcloud.io/dashboard?id=rodrigofujioka_pos-javaweb) 
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=rodrigofujioka_pos-javaweb&metric=code_smells)](https://sonarcloud.io/dashboard?id=rodrigofujioka_pos-javaweb) 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=rodrigofujioka_pos-javaweb&metric=alert_status)](https://sonarcloud.io/dashboard?id=rodrigofujioka_pos-javaweb) 
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=rodrigofujioka_pos-javaweb&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=rodrigofujioka_pos-javaweb) 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=rodrigofujioka_pos-javaweb&metric=ncloc)](https://sonarcloud.io/dashboard?id=rodrigofujioka_pos-javaweb) 
-![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=rodrigofujioka_pos-javaweb&metric=vulnerabilities)
+<h1>Descrição do projeto</h1>
 
-Olá, seja bem vindo a mais um curso com o professor Rodrigo Fujioka. 
-
-* Meu linkedin: [@rodrigofujioka](https://www.linkedin.com/in/rodrigofujioka/)
-* Meu site: http://www.rodrigofujioka.com/web
-* Meu instagram: [@rodrigofujioka](https://www.instagram.com/rodrigofujioka) 
-* Meu facebook: [@rodrigofujioka](https://www.facebook.com/rodrigofujioka)
-
-Repositório Java Básico : https://github.com/rodrigofujioka/poo
-Repositório Programação Web: https://github.com/rodrigofujioka/programacaoweb 
-
-- [Intellij Idea](https://www.jetbrains.com/idea/) 
-- [Spring Tools](https://spring.io/tools)  
-- [JDK](https://jdk.java.net/java-se-ri/17)
-
-- ```Outras ferramentas como NetBeans ou VS Code podem ser utilizadas)```
-
-## Cursos recomendados
-
-Cursos recomendados para alunos com dificuldade em assimilar o conteúdo. 
-
-#### GIT
-- [GIT para iniciantes](https://www.udemy.com/git-e-github-para-iniciantes/)
-- [GIT - DevMedia](https://www.devmedia.com.br/guia/git-e-github/37585)
-
-#### Java
-- [DevMedia - Java](https://www.devmedia.com.br/guia/programador-java/37809)
-- [Loiane - Java](https://loiane.training/curso/java-basico)
+<p>Criação de uma API utilizando o framework Springboot para criar um CRUD com objetivo de exercitar os conceitos abordados em sala. Optou-se por criar um CRUD de Ativos financeiros da bolsa de valores.Foi implementados os métodos criar, listar , alterar, excluir e consultar por ID.</p>
 
 
-## Preparação do ambiente
+<h2>Estrutura de pacotes</h2>
+
+src/
+└── main/
+    └── java/
+        └── br/
+            └── edu/
+                └── unipe/
+                    └── api/
+                        ├── controller/
+                           |--- AtivoController.java
+                        ├── service/
+                           |--- AtivoService.java
+                           |--- ServiceResponse.java
+                        ├── repository/
+                           |--- AtivoRepository.java
+                        ├── model/
+                           |--- Ativo.java
+                           |---DadosListagemAtivos.java
+                        ├── client/
+                        └── exception/
+                           
+
+<strong>br.edu.unipe.api.controller:</strong> Importa o Service e o Model, pois precisa chamar serviços e manipular dados que são retornados ou enviados.
+<strong>br.edu.unipe.api.service:</strong> Importa o Repository, Model, e API Client para realizar operações de banco de dados e integrações externas, além de manipular entidades e exceções específicas que podem ocorrer durante a execução dos métodos de negócios.
+<strong>br.edu.unipe.api.repository:</strong> Importa o Model para definir as entidades do domínio e gerenciar a persistência dos dados.
+<strong>br.edu.unipe.api.model:</strong> Não precisa importar outros pacotes, pois é um pacote de definição de entidades.
+<strong>br.edu.unipe.api.client:</strong> Pode usar bibliotecas como RestTemplate para comunicação com APIs externas, mas neste diagrama, não estamos mostrando imports específicos de bibliotecas externas.
+<strong>br.edu.unipe.api.exception:</strong> trata todas as exceções personalizadas da aplicação, o que facilita a manutenção e promove a reutilização do código.
+
+<h2>Tratamento de Exceções</h2>
+<p>As exceções serão lançadas a partir camada de serviço, por meio da classe "ServiceResponse" que servirá como um contêiner para o resultado do serviço, incluindo o status HTTP e o corpo da resposta que serão repassados ao "AtivoController".</p>
+<p>Para situações em que há realmente um erro (por exemplo, uma falha de validação ou uma condição inesperada), o AtivoService ainda pode lançar exceções. Essas exceções podem ser tratadas globalmente usando um Exception Handler.</p>
 
 
-1 - Configurar o ambiente Java, na ordem informada. 
-
-1.1 - Baixar e instalar o JDK  -> 
-         [Oracle JDK](https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html)
-         [Open JDK](https://openjdk.java.net/install/index.html)
-
-1.2 - Baixar e extrair binarios do Maven -> 
-         [Maven](https://maven.apache.org/download.cgi)
-         
-1.3 - Configurar Classpath (Java e Maven) -> 
-
-1.4 - Baixar e instalar ferramentas de desenvolvimento.
-
-1.4.1 - Aulas ministradas com [Intellij Idea](https://www.jetbrains.com/idea/) Idea ou [Spring Tools](https://spring.io/tools)  .
-
-1.4.2 - Pode ser utilizada qualquer outra ferramenta, no entanto, dúvidas sobre 
-utilização apenas sobre as IDE's do itens #1.4.1
-
-1.5 - Criar conta no github 
-
-1.5.1 - Realizar fork do meu github [Java básico](https://github.com/rodrigofujioka/pos-javaweb) , recomendo me seguir lá. 
-
-1.5.2 - Instruções para o projeto são informadas em sala de aula, deve existir outro arquivo .MD com as 
-instruções descritivas para sua turma. 
