@@ -42,5 +42,6 @@ src/
 <h2>Tratamento de Exceções</h2>
 <p>As exceções serão lançadas a partir camada de serviço, por meio da classe "ServiceResponse" que servirá como um contêiner para o resultado do serviço, incluindo o status HTTP e o corpo da resposta que serão repassados ao "AtivoController".</p>
 <p>Para situações em que há realmente um erro (por exemplo, uma falha de validação ou uma condição inesperada), o AtivoService ainda pode lançar exceções. Essas exceções podem ser tratadas globalmente usando um Exception Handler.</p>
+<p>Essa abordagem mantém o Controller simples, repassando as respostas do Service conforme o status HTTP determinado. Exceções são lançadas apenas para erros reais, mantendo uma separação entre a lógica de negócios e a lógica de controle HTTP.</p>
 
 
