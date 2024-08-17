@@ -1,7 +1,8 @@
 # Pós graduação em desenvolvimento web full-stack
-Professor: Rodrigo Fujioka. 
-Aluno: Williams Alves Dantas
-Matricula: 
+<p>Professor: Rodrigo Fujioka.  </p>
+<p></p>Aluno: Williams Alves Dantas </p>
+<p></p>
+<p></p>Matricula: </p>
 
 <h1>Descrição do projeto</h1>
 
@@ -9,7 +10,7 @@ Matricula:
 
 
 <h2>Estrutura de pacotes</h2>
-
+<pre>
 src/
 └── main/
     └── java/
@@ -30,7 +31,7 @@ src/
                         ├── client/
                         └── exception/
                            
-
+</pre>
 <strong>br.edu.unipe.api.controller:</strong> Importa o Service e o Model, pois precisa chamar serviços e manipular dados que são retornados ou enviados.
 <strong>br.edu.unipe.api.service:</strong> Importa o Repository, Model, e API Client para realizar operações de banco de dados e integrações externas, além de manipular entidades e exceções específicas que podem ocorrer durante a execução dos métodos de negócios.
 <strong>br.edu.unipe.api.repository:</strong> Importa o Model para definir as entidades do domínio e gerenciar a persistência dos dados.
