@@ -1,4 +1,4 @@
-# Pós graduação em desenvolvimento web full-stack
+# Pós graduação em Desenvolvimento Web Full-Stack
 <p><strong>Professor:</strong> Rodrigo Fujioka.  </p>
 <p><strong>Aluno:</strong> Williams Alves Dantas </p>
 <p><strong>E-mail:</strong> williamsad9@gmail.com</p>
